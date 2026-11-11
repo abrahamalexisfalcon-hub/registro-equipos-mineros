@@ -1,6 +1,11 @@
 package com.minero.horometro.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
@@ -22,13 +27,6 @@ public class TipoEquipo {
     private String descripcion;
 
     public TipoEquipo() {
-    }
-
-    public TipoEquipo(Integer idTipo, String nombre, BigDecimal intervaloHorasMantenimiento, String descripcion) {
-        this.idTipo = idTipo;
-        this.nombre = nombre;
-        this.intervaloHorasMantenimiento = intervaloHorasMantenimiento;
-        this.descripcion = descripcion;
     }
 
     public TipoEquipo(String nombre, BigDecimal intervaloHorasMantenimiento, String descripcion) {

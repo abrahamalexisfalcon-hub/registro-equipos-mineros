@@ -32,19 +32,19 @@ public class MantenimientoServiceImpl implements MantenimientoService {
         Equipo equipo = equipoRepository.findById(equipoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Equipo no encontrado con ID: " + equipoId));
 
-        HistorialMantenimiento historial = new HistorialMantenimiento();
-        historial.setEquipo(equipo);
-        historial.setHorometroServicio(equipo.getHorometro());
-        historial.setFechaServicio(LocalDateTime.now());
-        historial.setNombreTecnico(request.nombreTecnico().trim());
-        historial.setObservaciones(request.observaciones());
+        HistorialMantenimiento historial = new HistorialMantenimiento(
+                equipo,
+                equipo.getHorometro(),
+                LocalDateTime.now(),
+                request.nombreTecnico().trim(),
+                request.observaciones()
+        );
 
         // Actualizar horas_ultimo_mantenimiento = horometro en la entidad Equipo
         equipo.setHorasUltimoMantenimiento(equipo.getHorometro());
         equipoRepository.save(equipo);
 
-        HistorialMantenimiento guardado = historialMantenimientoRepository.save(historial);
-        return mapToHistorialResponse(guardado);
+        return mapToHistorialResponse(historialMantenimientoRepository.save(historial));
     }
 
     @Override

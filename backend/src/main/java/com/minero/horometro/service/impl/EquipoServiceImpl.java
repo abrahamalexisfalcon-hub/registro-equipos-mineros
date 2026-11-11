@@ -45,9 +45,7 @@ public class EquipoServiceImpl implements EquipoService {
     @Override
     @Transactional(readOnly = true)
     public EquipoResponse obtenerPorId(Long id) {
-        Equipo equipo = equipoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo no encontrado con ID: " + id));
-        return mapToEquipoResponse(equipo);
+        return mapToEquipoResponse(obtenerEquipoOError(id));
     }
 
     @Override
@@ -61,21 +59,14 @@ public class EquipoServiceImpl implements EquipoService {
         TipoEquipo tipoEquipo = tipoEquipoRepository.findById(request.tipoId())
                 .orElseThrow(() -> new ResourceNotFoundException("Tipo de equipo no encontrado con ID: " + request.tipoId()));
 
-        Equipo nuevoEquipo = new Equipo();
-        nuevoEquipo.setCodigo(codigoNormalizado);
-        nuevoEquipo.setTipoEquipo(tipoEquipo);
-        nuevoEquipo.setHorometro(request.horometroInicial());
-        nuevoEquipo.setHorasUltimoMantenimiento(BigDecimal.ZERO);
-
-        Equipo guardado = equipoRepository.save(nuevoEquipo);
-        return mapToEquipoResponse(guardado);
+        Equipo nuevoEquipo = new Equipo(codigoNormalizado, tipoEquipo, request.horometroInicial(), BigDecimal.ZERO);
+        return mapToEquipoResponse(equipoRepository.save(nuevoEquipo));
     }
 
     @Override
     @Transactional
     public EquipoResponse actualizarHorometro(Long id, EquipoUpdateRequest request) {
-        Equipo equipo = equipoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo no encontrado con ID: " + id));
+        Equipo equipo = obtenerEquipoOError(id);
 
         if (request.horometro().compareTo(equipo.getHorometro()) < 0) {
             throw new BusinessRuleException(
@@ -85,19 +76,22 @@ public class EquipoServiceImpl implements EquipoService {
         }
 
         equipo.setHorometro(request.horometro());
-        Equipo actualizado = equipoRepository.save(equipo);
-        return mapToEquipoResponse(actualizado);
+        return mapToEquipoResponse(equipoRepository.save(equipo));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        Equipo equipo = equipoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo no encontrado con ID: " + id));
+        Equipo equipo = obtenerEquipoOError(id);
         // Eliminar primero el historial asociado para no violar la FK id_equipo
         historialMantenimientoRepository.deleteAll(
                 historialMantenimientoRepository.findByEquipoIdEquipoOrderByFechaServicioDesc(id));
         equipoRepository.delete(equipo);
+    }
+
+    private Equipo obtenerEquipoOError(Long id) {
+        return equipoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipo no encontrado con ID: " + id));
     }
 
     private EquipoResponse mapToEquipoResponse(Equipo equipo) {
