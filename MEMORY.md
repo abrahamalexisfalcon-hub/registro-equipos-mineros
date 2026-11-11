@@ -8,6 +8,15 @@
 - Compilación verificada con `mvnw compile` y `mvnw test-compile`.
 - Frontend implementado (`src/api`, `src/components`, `src/utils`, `App.jsx`): dashboard con métricas, tabla de flota y modales de alta, horómetro, mantenimiento e historial. `eslint` y `vite build` sin errores.
 
+## Decisiones de Diseño — Lista "Flota registrada" (`TablaEquipos.jsx`) y Layout
+- **Patrón Responsive Industrial (Tabla Desktop / Cards Móvil):**
+  - **Desktop (`hidden md:block`):** Conserva la tabla completa con 8 columnas (`w-full table-auto border-collapse`), sin scrollbar horizontal en pantallas de escritorio.
+  - **Móvil (`block md:hidden`):** Stack vertical de tarjetas táctiles (`space-y-3.5`). Cada tarjeta (`TarjetaEquipoMovil`) presenta en el header el código del equipo en badge monoespaciado (`font-mono font-bold bg-slate-100 text-slate-800`), tipo de maquinaria y badge de estado; datos clave de horómetro y último servicio destacados en bloque; barra de progreso de horas de ciclo con ratios numéricos; y un footer de botones optimizado con `touch-manipulation` para acciones inmediatas (horómetro, servicio, historial, eliminar).
+  - Resalte visual de alertas en móvil: borde izquierdo diferenciado (`border-l-4 border-l-amber-500` para mantenimiento requerido y `border-l-4 border-l-red-500` para mantenimiento vencido).
+- **Aprovechamiento total de pantalla (1080p+):** Layout principal (`App.jsx` y `Header.jsx`) configurado con `max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8`, eliminando márgenes laterales excesivos y proporcionando un ancho natural y amplio para dashboards operativos de alta densidad.
+- **Sin overflow en escritorio:** Tabla de escritorio con `w-full table-auto border-collapse` y wrapper `overflow-x-auto lg:overflow-x-visible`.
+- **Filtros y Búsqueda Unificados:** La cabecera superior con buscador reactivo (`Search`) y chips de estado (`Todos`, `Operativos`, `En Alerta`) filtra de manera sincronizada tanto la vista de tarjetas móviles como la tabla de escritorio en memoria, sin peticiones redundantes. Accesibilidad garantizada con `title` y `aria-label`.
+
 ## Contrato API (frontend ↔ backend)
 - `GET /health`
 - `GET|POST /api/v1/equipos`, `DELETE /api/v1/equipos/{id}` (borra también su historial)

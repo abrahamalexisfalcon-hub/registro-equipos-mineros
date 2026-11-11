@@ -35,7 +35,7 @@ export default function Header({ onNuevo }) {
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-[1440px] w-full flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-900 text-white">
             <HardHat className="h-5 w-5" />
