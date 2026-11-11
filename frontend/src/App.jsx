@@ -112,6 +112,7 @@ export default function App() {
 
       {modal?.tipo === 'nuevo' && (
         <ModalNuevoEquipo
+          equipos={equipos}
           onClose={cerrarModal}
           onCreado={(e) => trasOperacion(`Equipo ${e.codigo} registrado correctamente.`)}
         />
