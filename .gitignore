@@ -21,8 +21,12 @@ backend/.env
 backend/.env.local
 frontend/.env
 frontend/.env.local
+.env.deploy
 
 # Permitir únicamente plantillas de ejemplo sin credenciales
 !.env.example
 !backend/.env.example
 !frontend/.env.example
+
+.vercel
+.env*
