@@ -1,6 +1,7 @@
 # Dependencias Node / Frontend
 frontend/node_modules/
 frontend/dist/
+.vercel
 
 # Compilados Java / Backend
 backend/target/
@@ -15,18 +16,18 @@ backend/.mvn/wrapper/maven-wrapper.jar
 # Variables de entorno reales (prohibido versionar secretos)
 .env
 .env.local
+.env.deploy
 .env.*
+.env*
 *.env
 backend/.env
 backend/.env.local
+backend/.env.deploy
 frontend/.env
 frontend/.env.local
-.env.deploy
+frontend/.env.deploy
 
 # Permitir únicamente plantillas de ejemplo sin credenciales
 !.env.example
 !backend/.env.example
 !frontend/.env.example
-
-.vercel
-.env*
