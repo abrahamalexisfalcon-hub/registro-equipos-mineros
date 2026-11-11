@@ -453,14 +453,14 @@ export default function TablaEquipos({ equipos, loading, onHorometro, onMantenim
                           onClick={() => onMantenimiento(equipo)}
                           className={
                             nivel === 'ok'
-                              ? 'btn-icon'
-                              : `inline-flex h-8 items-center gap-1 rounded-md border px-2 text-xs font-semibold transition duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${estilos.accion}`
+                              ? 'inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40'
+                              : 'inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md border border-rose-300 bg-rose-50 text-rose-700 hover:bg-rose-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40'
                           }
                           title={nivel === 'ok' ? 'Registrar servicio' : 'Registrar servicio (mantenimiento pendiente)'}
                           aria-label={`Registrar servicio de ${equipo.codigo}`}
                         >
                           <Wrench className="h-3.5 w-3.5" />
-                          {nivel !== 'ok' && <span>Servicio</span>}
+                          <span>Servicio</span>
                         </button>
                         <button
                           type="button"
