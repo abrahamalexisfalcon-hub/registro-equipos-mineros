@@ -1,0 +1,9 @@
+# Evita que secretos locales o artefactos entren al contexto de `docker build`
+target/
+.env
+.env.*
+!.env.example
+*.log
+.git
+.vscode
+.idea
