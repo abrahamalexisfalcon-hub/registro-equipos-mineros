@@ -32,7 +32,7 @@ fi
 echo -e "${YELLOW}[1/3] Disparando despliegue de Backend en Render...${NC}"
 HTTP_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$RENDER_DEPLOY_HOOK")
 
-if [ "$HTTP_RESPONSE" -eq 200 ] || [ "$HTTP_RESPONSE" -eq 201 ]; then
+if [ "$HTTP_RESPONSE" -ge 200 ] && [ "$HTTP_RESPONSE" -lt 300 ]; then
     echo -e "${GREEN}[OK] Trigger de Render enviado correctamente (HTTP $HTTP_RESPONSE).${NC}"
 else
     echo -e "${RED}[ERROR] Falló el trigger de Render. Código HTTP: $HTTP_RESPONSE${NC}"
