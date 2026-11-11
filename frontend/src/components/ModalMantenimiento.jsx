@@ -38,11 +38,11 @@ export default function ModalMantenimiento({ equipo, onClose, onRegistrado }) {
       onClose={onClose}
     >
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
-        <div className="flex items-start gap-2 rounded-lg border border-sky-500/20 bg-sky-500/10 px-3 py-2 text-sm text-sky-300">
+        <div className="alert-info">
           <Info className="mt-0.5 h-4 w-4 shrink-0" />
           <span>
             Al guardar, las horas de ciclo se reiniciarán a 0.00
-            <span className="text-sky-400/70"> (actualmente {formatearHoras(equipo.horasDesdeUltimoMantenimiento)} h).</span>
+            <span className="text-blue-700/80"> (actualmente {formatearHoras(equipo.horasDesdeUltimoMantenimiento)} h).</span>
           </span>
         </div>
 
@@ -78,13 +78,13 @@ export default function ModalMantenimiento({ equipo, onClose, onRegistrado }) {
         </div>
 
         {error && (
-          <div className="flex items-start gap-2 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-300">
+          <div className="alert-error">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
             {error}
           </div>
         )}
 
-        <div className="flex justify-end gap-2 pt-2">
+        <div className="flex justify-end gap-2 border-t border-slate-100 pt-4">
           <button type="button" onClick={onClose} className="btn-secondary" disabled={enviando}>
             Cancelar
           </button>

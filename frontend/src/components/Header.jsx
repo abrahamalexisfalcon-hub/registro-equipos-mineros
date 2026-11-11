@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Activity, Plus } from 'lucide-react';
+import { HardHat, Plus } from 'lucide-react';
 import { checkHealth } from '../api/equipoService';
 
 const INTERVALO_HEALTH_MS = 30000;
 
 const ESTILOS_ESTADO = {
-  verificando: { texto: 'Verificando…', badge: 'border-slate-700 bg-slate-800 text-slate-400', punto: 'bg-slate-500' },
-  online: { texto: 'Backend Online', badge: 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400', punto: 'bg-emerald-400 animate-pulse' },
-  offline: { texto: 'Backend Offline', badge: 'border-rose-500/20 bg-rose-500/10 text-rose-400', punto: 'bg-rose-500' },
+  verificando: { texto: 'Verificando…', badge: 'border-slate-200 bg-slate-50 text-slate-600', punto: 'bg-slate-400' },
+  online: { texto: 'API Conectada', badge: 'border-emerald-200 bg-emerald-50 text-emerald-800', punto: 'bg-emerald-500 animate-pulse' },
+  offline: { texto: 'API Sin conexión', badge: 'border-rose-200 bg-rose-50 text-rose-800', punto: 'bg-rose-500' },
 };
 
 export default function Header({ onNuevo }) {
@@ -34,27 +34,33 @@ export default function Header({ onNuevo }) {
   const estilo = ESTILOS_ESTADO[estado];
 
   return (
-    <header className="flex flex-col gap-4 border-b border-slate-800 pb-6 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-amber-500/30 bg-amber-500/10">
-          <Activity className="h-6 w-6 text-amber-400" />
+    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-900 text-white">
+            <HardHat className="h-5 w-5" />
+          </div>
+          <div>
+            <h1 className="text-base font-semibold leading-tight text-slate-900 sm:text-lg">
+              Monitoreo de Horómetros
+            </h1>
+            <p className="text-xs text-slate-500">Registro de Equipos Mineros</p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">
-            Monitoreo de Horómetros - Equipos Mineros
-          </h1>
+
+        <div className="flex items-center justify-between gap-3 sm:justify-end">
           <span
-            className={`mt-1 inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-medium ${estilo.badge}`}
+            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${estilo.badge}`}
           >
             <span className={`h-2 w-2 rounded-full ${estilo.punto}`} />
             {estilo.texto}
           </span>
+          <button type="button" onClick={onNuevo} className="btn-primary">
+            <Plus className="h-4 w-4" />
+            Registrar Maquinaria
+          </button>
         </div>
       </div>
-      <button type="button" onClick={onNuevo} className="btn-primary">
-        <Plus className="h-4 w-4" />
-        Registrar Maquinaria
-      </button>
     </header>
   );
 }

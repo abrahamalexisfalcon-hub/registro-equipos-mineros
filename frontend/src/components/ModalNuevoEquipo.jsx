@@ -55,7 +55,7 @@ export default function ModalNuevoEquipo({ onClose, onCreado }) {
     <Modal titulo="Registrar Maquinaria" subtitulo="Alta de un nuevo equipo en la flota" icono={Plus} onClose={onClose}>
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
         {errorServidor && (
-          <div className="flex items-start gap-2 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-300">
+          <div className="alert-error">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
             {errorServidor}
           </div>
@@ -71,7 +71,7 @@ export default function ModalNuevoEquipo({ onClose, onCreado }) {
               </option>
             ))}
           </select>
-          {errores.tipoId && <p className="mt-1 text-xs text-rose-400">{errores.tipoId}</p>}
+          {errores.tipoId && <p className="field-error">{errores.tipoId}</p>}
         </div>
 
         <div>
@@ -87,7 +87,7 @@ export default function ModalNuevoEquipo({ onClose, onCreado }) {
             disabled={enviando}
             autoFocus
           />
-          {errores.codigo && <p className="mt-1 text-xs text-rose-400">{errores.codigo}</p>}
+          {errores.codigo && <p className="field-error">{errores.codigo}</p>}
         </div>
 
         <div>
@@ -102,10 +102,10 @@ export default function ModalNuevoEquipo({ onClose, onCreado }) {
             className="input tabular-nums"
             disabled={enviando}
           />
-          {errores.horometroInicial && <p className="mt-1 text-xs text-rose-400">{errores.horometroInicial}</p>}
+          {errores.horometroInicial && <p className="field-error">{errores.horometroInicial}</p>}
         </div>
 
-        <div className="flex justify-end gap-2 pt-2">
+        <div className="flex justify-end gap-2 border-t border-slate-100 pt-4">
           <button type="button" onClick={onClose} className="btn-secondary" disabled={enviando}>
             Cancelar
           </button>

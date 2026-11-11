@@ -35,9 +35,9 @@ export default function ModalHorometro({ equipo, onClose, onActualizado }) {
   return (
     <Modal titulo="Actualizar Horómetro" subtitulo={`Equipo ${equipo.codigo}`} icono={Clock} onClose={onClose} ancho="max-w-sm">
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
-        <div className="rounded-lg border border-slate-800 bg-slate-950 px-4 py-3">
-          <p className="text-xs uppercase tracking-wide text-slate-500">Horómetro actual</p>
-          <p className="mt-0.5 text-2xl font-semibold tabular-nums text-slate-100">{formatearHoras(actual)} h</p>
+        <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Horómetro actual</p>
+          <p className="mt-0.5 text-2xl font-semibold tabular-nums text-slate-900">{formatearHoras(actual)} h</p>
         </div>
 
         <div>
@@ -59,13 +59,13 @@ export default function ModalHorometro({ equipo, onClose, onActualizado }) {
         </div>
 
         {error && (
-          <div className="flex items-start gap-2 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-300">
+          <div className="alert-error">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
             {error}
           </div>
         )}
 
-        <div className="flex justify-end gap-2 pt-2">
+        <div className="flex justify-end gap-2 border-t border-slate-100 pt-4">
           <button type="button" onClick={onClose} className="btn-secondary" disabled={enviando}>
             Cancelar
           </button>
