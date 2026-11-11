@@ -1,0 +1,64 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  # ==========================================
+  # 1. Validación y Pruebas del Backend (Java)
+  # ==========================================
+  backend-ci:
+    name: Backend CI (Spring Boot)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: Dar permisos de ejecución a Maven Wrapper
+        run: chmod +x backend/mvnw
+
+      - name: Compilar y Ejecutar Pruebas Automatizadas
+        run: |
+          cd backend
+          ./mvnw clean test
+
+  # ==========================================
+  # 2. Validación y Build del Frontend (React)
+  # ==========================================
+  frontend-ci:
+    name: Frontend CI (React + Vite)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Instalar dependencias
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Validar Build de Producción
+        env:
+          VITE_API_URL: http://localhost:8080
+        run: |
+          cd frontend
+          npm run build
