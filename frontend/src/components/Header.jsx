@@ -42,7 +42,7 @@ export default function Header({ onNuevo }) {
           </div>
           <div>
             <h1 className="text-base font-semibold leading-tight text-slate-900 sm:text-lg">
-              Monitoreo de Horómetros
+              Monitoreo de Horómetros v.1.0
             </h1>
             <p className="text-xs text-slate-500">Registro de Equipos Mineros</p>
           </div>
