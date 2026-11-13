@@ -57,7 +57,7 @@ export default function Header({ onNuevo }) {
           </span>
           <button type="button" onClick={onNuevo} className="btn-primary">
             <Plus className="h-4 w-4" />
-            Registrar 
+            Registrar Maquinaria
           </button>
         </div>
       </div>
